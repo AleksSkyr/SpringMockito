@@ -14,7 +14,7 @@ public class EmployeeService {
     private static final int LIMIT = 10;
     private final Map<String, Employee> employees = new HashMap<>();
 
-    public void addEmployee(String firstName, String lastName, int departament) {
+    public void addEmployee(String firstName, String lastName, int departament, int i) {
         if (employees.size() == LIMIT) {
             throw new EmployeeStorageIsFullException();
         }
@@ -27,7 +27,7 @@ public class EmployeeService {
 
     }
 
-    public Employee findEmployee(String firstName, String lastName, int departament) {
+    public Employee findEmployee(String firstName, String lastName) {
         var emp = employees.get(empKey(firstName, lastName));
         if (emp == null) {
             throw new EmployeeNotFoundException();
@@ -35,7 +35,7 @@ public class EmployeeService {
         return emp;
     }
 
-    public boolean removeEmployee(String firstName, String lastName, int departament) {
+    public boolean removeEmployee(String firstName, String lastName) {
         Employee rem = employees.remove(empKey(firstName, lastName));
         if (rem == null) {
             throw new EmployeeNotFoundException();
