@@ -1,54 +1,18 @@
 package Service;
 
-import Exeption.EmployeeNotFoundException;
 import model.Employee;
-import org.springframework.stereotype.Service;
 
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.List;
+import java.util.Map;
 
+public interface DepartamentService {
+    double sum(int deptId);
 
-import static java.util.Arrays.stream;
+    Employee maxSalary(int deptId);
 
-@Service
-public class DepartamentService {
+    Employee minSalary(int deptId);
 
-    private final EmployeeService employeeService;
+    List<Employee> findAllByDept(int deptId);
 
-    public DepartamentService(EmployeeService employeeService) {
-        this.employeeService = employeeService;
-    }
-
-    public double maxSelary(int depId) {
-        return employeeService.getAll()
-                .stream()
-                .filter(e -> e.getDepartament == depId)
-                .map(e -> e.getSalary())
-                .max((Comparator.comparingDouble(o -> o)));
-                .orElseThrow(EmployeeNotFoundException::new);
-    }
-
-    public double minSelary(int depId) {
-        return employeeService.getAll()
-                .str()
-                .filter(e -> e.getDepartament() == depId)
-                .map(e -> e.getSalary())
-                .min((Comparator.comparingDouble(o -> o)));
-                 .orElseThrow(EmployeeNotFoundException::new);
-    }
-
-    public List<Employee> findAllByDept(int deptId) {
-        return employeeService.getAll()
-                .stream()
-                .filter(e -> e.getDepartament() == deptId)
-                .collect(Collectors.toList());
-
-    }
-
-    public void groupByDepartment() {
-        Map<Integer, List<Employee>> map = employeeService.getAll();
-            .stream()
-                .collect(Collectors.groupingBy(Employee::getDepartament));
-    }
-
+    Map<Integer, List<Employee>> groopByDept();
 }

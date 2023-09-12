@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import java.util.Collection;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.springframework.util.StringUtils.capitalize;
 
 class EmloyeeTest {
     EmloyeeServiceImpl emloyeeService = new EmloyeeServiceImpl() {

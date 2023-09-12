@@ -2,7 +2,7 @@ package controller;
 
 
 import Exeption.NotArgumentExeption;
-import Service.EmployeeService;
+import Service.EmloyeeServiceImpl;
 import model.Employee;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,10 +15,9 @@ import java.util.Collection;
 @RestController
 @RequestMapping("/employee")
 public class EmployeeController {
+    private final EmloyeeServiceImpl service;
 
-    private final EmployeeService service;
-
-    public EmployeeController(EmployeeService service) {
+    public EmployeeController(EmloyeeServiceImpl service) {
         this.service = service;
     }
 

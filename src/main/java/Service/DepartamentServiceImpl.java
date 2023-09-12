@@ -10,13 +10,8 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
-public class DepartamentServiceImpl extends DepartamentService {
+public class DepartamentServiceImpl implements DepartamentService {
     private EmloyeeServiceImpl emloyeeServiceImpl;
-
-    @Override
-    public DepartamentServiceImpl() {
-        this.emloyeeServiceImpl = emloyeeServiceImpl;
-    }
 
     @Override
     public double sum(int deptId) {

@@ -35,7 +35,7 @@ import static org.mockito.Mockito.when;
                     new Employee("test3", "test_test3",40, 4),
                     new Employee("test4", "test_test4",50, 5));
 
-            when(emloyeeService.getAll()).thenReturn((Map<Integer, List<Employee>>) employees);
+            when(emloyeeService.getAll()).thenReturn(employees);
         }
 
         @Test
@@ -51,7 +51,7 @@ import static org.mockito.Mockito.when;
                     new Employee("test3", "test_test3",40, 4),
                     new Employee("test4", "test_test4",50, 5));
 
-            when(emloyeeService.getAll()).thenReturn((Map<Integer, List<Employee>>) employees);
+            when(emloyeeService.getAll()).thenReturn(employees);
             Assertions.assertThat(departamentService.maxSalary(2)).isEqualTo(employees.get(1));
         }
         @Test
@@ -63,13 +63,13 @@ import static org.mockito.Mockito.when;
                     new Employee("test3", "test_test3",40, 4),
                     new Employee("test4", "test_test4",50, 5));
 
-            when(emloyeeService.getAll()).thenReturn((Map<Integer, List<Employee>>) employees);
+            when(emloyeeService.getAll()).thenReturn(employees);
             Assertions.assertThat(departamentService.minSalary(1)).isEqualTo(employees.get(0));
         }
 
         @Test
         void whenEmployeesIsEmpty() {
-            when(emloyeeService.getAll()).thenReturn((Map<Integer, List<Employee>>) Collections.emptyList());
+            when(emloyeeService.getAll()).thenReturn (Collections.emptyList());
             Assertions.assertThatThrownBy (()->departamentService.minSalary(1))
                     .isInstanceOf(EmployeeNotFoundException.class);
             Assertions.assertThatThrownBy (()->departamentService.maxSalary(1))

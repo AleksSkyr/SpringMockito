@@ -4,58 +4,54 @@ import Exeption.EmployeeAllreadyAddedException;
 import Exeption.EmployeeNotFoundException;
 import Exeption.EmployeeStorageIsFullException;
 import model.Employee;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
-import java.util.List;
+import java.util.Collection;
 import java.util.Map;
 
+import static org.apache.tomcat.util.IntrospectionUtils.capitalize;
+
 @Service
-public class EmloyeeServiceImpl extends EmployeeService {
+public class EmloyeeServiceImpl implements EmloyeeService {
     private static final int SIZE = 10;
     private final Map<String, Employee> employees = new HashMap<>();
 
 
-    public void addEmployee(String firstName, String lastName, int departament, int i) {
+    @Override
+    public void addEmployee(String lastName, String firstName, double salary, int departamentId) {
         if (employees.size() == SIZE) {
             throw new EmployeeStorageIsFullException();
         }
-        var key = empKey(firstName, lastName);
+        var key = makeKey(lastName, firstName);
         if (employees.containsKey(key)) {
             throw new EmployeeAllreadyAddedException();
         }
-
-        employees.put(key, new Employee(StringUtils.capitalize(firstName), StringUtils.capitalize(lastName), departament));
-
+        employees.put(key, new Employee(capitalize(firstName), capitalize(lastName), salary, departamentId));
     }
 
-    public Employee findEmployee(String firstName, String lastName) {
-        var emp = employees.get(empKey(firstName, lastName));
+    @Override
+    public Employee findEmployee(String lastName, String firstName) {
+        var emp = employees.get(makeKey(lastName, firstName));
         if (emp == null) {
             throw new EmployeeNotFoundException();
         }
         return emp;
     }
 
-    public boolean removeEmployee(String firstName, String lastName) {
-        Employee rem = employees.remove(empKey(firstName, lastName));
-        if (rem == null) {
+    @Override
+    public boolean removeEmployee(String lastName, String firstName) {
+        Employee removed = employees.remove(makeKey(lastName, firstName));
+        var employee = new Employee(lastName, firstName);
+        if (removed == null) {
             throw new EmployeeNotFoundException();
         }
         return true;
     }
 
-    public Map<Integer, List<Employee>> getAll() {
-
-
-        return (Map<Integer, List<Employee>>) employees.values();
+    @Override
+    public Collection<Employee> getAll() {
+        return employees.values();
     }
-
-    private String empKey(String firstName, String lastName) {
-        return (firstName + "_" + lastName).toLowerCase();
-    }
-
 
 }
-
