@@ -1,7 +1,6 @@
 package model;
 
 import java.util.Objects;
-import java.util.Objects;
 
 public class Employee {
     private String firstName;
@@ -9,7 +8,7 @@ public class Employee {
     private int departament;
     private int salary;
 
-    public Employee(String firstName, String lastName, int departament) {
+    public Employee(String firstName, String lastName, double salary, int departament) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.departament = departament;
@@ -69,11 +68,7 @@ public class Employee {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Employee employee = (Employee) o;
-        return Double.compare(salary, employee.salary) == o
-                && departament == employee.departament
-                && Objects.equals(firstName, employee firstName)
-                && Objects.equals(lastName, employee lastName);
-
+        return Double.compare(employee.salary, salary) == 0 && departament == employee.departament && Objects.equals(firstName, employee.firstName) && Objects.equals(lastName, employee.lastName);
     }
 
     @Override
